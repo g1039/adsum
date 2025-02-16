@@ -1,0 +1,38 @@
+version: '3.7'
+
+services:
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: foo
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: opentax
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
+
+  airflow:
+    build: .
+    environment:
+      AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://foo:mypassword@postgres:5432/opentax
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW_HOME: /opt/airflow
+    volumes:
+      - ./dags:/opt/airflow/dags
+    depends_on:
+      - postgres
+    ports:
+      - "8080:8080"
+
+  fastapi:
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+    command: uvicorn app:app --host 0.0.0.0 --port 8000 --reload
+
+volumes:
+  postgres_data:
