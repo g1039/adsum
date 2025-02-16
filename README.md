@@ -61,7 +61,7 @@ $ docker exec -it <container_name> airflow scheduler
 
 4.  **Access the Services**
 
-- **FastAPI** http://localhost:8000/ 
+- **FastAPI** http://localhost:8000/ Access the transaction insights via the endpoint: http://localhost:8000/transactions/{user_id}/summary
 - **Airflow UI** http://localhost:8080/
 
 
