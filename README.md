@@ -13,7 +13,7 @@ These components ensure efficient workflows and streamlined data processing.
 Requirements:
 -------------
 
-- [docker](https://docs.docker.com/desktop/>)
+- [docker](https://docs.docker.com/desktop/)
 
 Getting Started
 ---------------
