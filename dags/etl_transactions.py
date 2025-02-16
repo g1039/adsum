@@ -85,7 +85,7 @@ dag = DAG(
     'etl_transactions',
     default_args=default_args,
     description='ETL pipeline for financial transactions',
-    schedule_interval='@once',
+    schedule_interval='0 0 * * *',
 )
 
 etl_task = PythonOperator(
